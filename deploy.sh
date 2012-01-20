@@ -15,6 +15,10 @@ function bailIfError () {
 	if [ $? -ne 0 ]; then die "☠ Bad stuff happened"; fi
 }
 
+function hasFunction () {
+    type $1 2>/dev/null | grep -q 'is a function'
+}
+
 
 TEMP_DIR=`mktemp -d '/tmp/Etoile.XXXXXX'`	# Clean me up
 
@@ -28,5 +32,9 @@ zip -qr $IPA_NAME Payload
 zip -qr $DSYM_ZIP_NAME $DSYM_NAME
 
 curl $TF_API_URI -F file=@"$IPA_NAME" -F dsym=@"$DSYM_ZIP_NAME" -F api_token="$TF_API_TOKEN" -F team_token="$TF_TEAM_TOKEN" -F notes="$TF_NOTES" -F notify="$TF_NOTIFY"; bailIfError
+
+if type AFTER_BUILD >/dev/null 2>&1; then
+	AFTER_BUILD
+fi
 
 rm -rv $TEMP_DIR

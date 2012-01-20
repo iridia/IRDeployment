@@ -21,3 +21,8 @@ DSYM_ZIP_NAME="$PROJECT_NAME.app.dSYM.zip"
 TF_API_URI="http://testflightapp.com/api/builds.json"
 TF_NOTES="$PROJECT_NAME $VERSION_MARKETING ($VERSION_BUILD) # $COMMIT_SHA"
 TF_NOTIFY="False"
+
+# Runs within the temp directory
+# function AFTER_BUILD () {
+# 
+# }
