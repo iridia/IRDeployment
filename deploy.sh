@@ -8,7 +8,7 @@ fi
 source $ENV_FILE
 
 function die () {
-	echo "$1"; exit
+	echo "$1"; exit 1
 }
 
 function bailIfError () {
