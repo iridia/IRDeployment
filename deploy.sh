@@ -20,9 +20,11 @@ function hasFunction () {
 }
 
 
+FROM_DIR=`pwd`
 TEMP_DIR=`mktemp -d '/tmp/Etoile.XXXXXX'`	# Clean me up
 
 xcodebuild clean build -configuration $BUILD_CONFIGURATION -sdk $BUILD_SDK CODE_SIGN_IDENTITY="$CODE_SIGN_IDENTITY" SYMROOT="$TEMP_DIR" PROVISIONING_PROFILE="$PROVISIONING_PROFILE"; bailIfError
+
 
 cd "$TEMP_DIR/$BUILD_CONFIGURATION-$BUILD_SDK"
 mkdir Payload
@@ -34,7 +36,8 @@ zip -qr $DSYM_ZIP_NAME $DSYM_NAME
 curl $TF_API_URI -F file=@"$IPA_NAME" -F dsym=@"$DSYM_ZIP_NAME" -F api_token="$TF_API_TOKEN" -F team_token="$TF_TEAM_TOKEN" -F notes="$TF_NOTES" -F notify="$TF_NOTIFY" -F distribution_lists="$TF_DIST_LISTS"; bailIfError
 
 if type AFTER_BUILD >/dev/null 2>&1; then
-	AFTER_BUILD
+	cd $FROM_DIR
+	AFTER_BUILD; bailIfError
 fi
 
 rm -rv $TEMP_DIR
