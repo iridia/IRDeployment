@@ -55,3 +55,25 @@ You’ll find several variables exposed for your own convenience:
 *	The `$DSYM_NAME` is also provided in the Environments file, and should match the name of your .dSYM folder.
 
 *	In the `AFTER_BUILD` block, the `$DSYM_ZIP_NAME` points to the name of a zip file, relative to `$PRODUCT_DIR`.
+
+### `AFTER_BUILD` Recipes
+
+#### Post to TestFlight
+
+	cd "$PRODUCT_DIR"
+	curl $TF_API_URI -F file=@"$IPA_NAME" -F dsym=@"$DSYM_ZIP_NAME" -F api_token="$TF_API_TOKEN" -F team_token="$TF_TEAM_TOKEN" -F notes="$PROJECT_DESCRIPTION" -F notify="$TF_NOTIFY" -F distribution_lists="$TF_DIST_LISTS"; bailIfError
+
+#### Post to HockeyApp
+
+	function AFTER_BUILD () {
+
+		curl $HOCKEY_API_URI \
+			-F status="$HOCKEY_API_STATUS" \
+			-F notify="$HOCKEY_API_NOTIFY" \
+			-F notes="$PROJECT_DESCRIPTION" \
+			-F notes_type="1" \
+			-F ipa=@"$IPA_NAME" \
+			-F dsym=@"$DSYM_ZIP_NAME" \
+			-H "X-HockeyAppToken: ($HOCKEY_APP_TOKEN)"; bailIfError
+	
+	}

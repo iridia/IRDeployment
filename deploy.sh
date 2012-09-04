@@ -39,7 +39,4 @@ if type AFTER_BUILD >/dev/null 2>&1; then
 	AFTER_BUILD; bailIfError
 fi
 
-cd "$PRODUCT_DIR"
-curl $TF_API_URI -F file=@"$IPA_NAME" -F dsym=@"$DSYM_ZIP_NAME" -F api_token="$TF_API_TOKEN" -F team_token="$TF_TEAM_TOKEN" -F notes="$TF_NOTES" -F notify="$TF_NOTIFY" -F distribution_lists="$TF_DIST_LISTS"; bailIfError
-
 rm -rv "$TEMP_DIR"
