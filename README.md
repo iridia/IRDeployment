@@ -67,6 +67,7 @@ You’ll find several variables exposed for your own convenience:
 
 	function AFTER_BUILD () {
 
+		cd "$PRODUCT_DIR"
 		curl $HOCKEY_API_URI \
 			-F status="$HOCKEY_API_STATUS" \
 			-F notify="$HOCKEY_API_NOTIFY" \
@@ -74,6 +75,6 @@ You’ll find several variables exposed for your own convenience:
 			-F notes_type="1" \
 			-F ipa=@"$IPA_NAME" \
 			-F dsym=@"$DSYM_ZIP_NAME" \
-			-H "X-HockeyAppToken: ($HOCKEY_APP_TOKEN)"; bailIfError
+			-H "X-HockeyAppToken: $HOCKEY_APP_TOKEN"; bailIfError
 	
 	}

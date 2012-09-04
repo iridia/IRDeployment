@@ -33,7 +33,7 @@ PROJECT_DESCRIPTION="$PROJECT_NAME $VERSION_MARKETING ($VERSION_BUILD) # $COMMIT
 # 
 # HOCKEY_APP_IDENTIFIER=""
 # HOCKEY_APP_TOKEN=""
-# HOCKEY_API_URI="https://rink.hockeyapp.net/api/2/apps/($HOCKEY_APP_IDENTIFIER)/app_versions"
+# HOCKEY_API_URI="https://rink.hockeyapp.net/api/2/apps/$HOCKEY_APP_IDENTIFIER/app_versions"
 # HOCKEY_API_NOTIFY="0" # 0: Don’t notify; 1: Notify
 # HOCKEY_API_STATUS="1" # 1: Don’t allow downloads; 2: allow downloads
 # HOCKEY_API_NOTES_TYPE="1" # 0: Textile; 1: Markdown
