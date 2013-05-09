@@ -21,7 +21,7 @@ function hasFunction () {
 
 
 FROM_DIR=`pwd`
-TEMP_DIR=`mktemp -d` #'/tmp/Etoile.XXXXXX'`
+TEMP_DIR=`mktemp -d '/tmp/Etoile.XXXXXX'`
 PRODUCT_DIR="$TEMP_DIR/$BUILD_CONFIGURATION-$BUILD_SDK"
 
 # clean
