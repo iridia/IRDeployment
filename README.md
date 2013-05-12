@@ -60,9 +60,27 @@ You’ll find several variables exposed for your own convenience:
 
 #### Post to TestFlight
 
-	cd "$PRODUCT_DIR"
-	curl $TF_API_URI -F file=@"$IPA_NAME" -F dsym=@"$DSYM_ZIP_NAME" -F api_token="$TF_API_TOKEN" -F team_token="$TF_TEAM_TOKEN" -F notes="$PROJECT_DESCRIPTION" -F notify="$TF_NOTIFY" -F distribution_lists="$TF_DIST_LISTS"; bailIfError
+	TF_API_URI="http://testflightapp.com/api/builds.json"
+	TF_API_TOKEN="" # snip
+	TF_TEAM_TOKEN="" # snip
+	TF_NOTIFY="False"
+	TF_DIST_LISTS=""
+	
+	function AFTER_BUILD () {
 
+		cd "$PRODUCT_DIR"
+
+		curl $TF_API_URI \
+			-F file=@"$IPA_NAME" \
+			-F dsym=@"$DSYM_ZIP_NAME" \
+			-F api_token="$TF_API_TOKEN" \
+			-F team_token="$TF_TEAM_TOKEN" \
+			-F notes="$PROJECT_DESCRIPTION" \
+			-F notify="$TF_NOTIFY" \
+			-F distribution_lists="$TF_DIST_LISTS"; bailIfError
+
+	}
+	
 #### Post to HockeyApp
 
 	function AFTER_BUILD () {
