@@ -7,6 +7,10 @@ VERSION_MARKETING=$(agvtool mvers -terse1)
 VERSION_BUILD=$(agvtool vers -terse)
 COMMIT_SHA=$(git rev-parse HEAD)
 
+BUILD_FOR="Project" # "Project" or "Workspace"
+PROJECT_PATH="$PROJECT_NAME.xcodeproj" # used if BUILD_FOR = "Project"
+WORKSPACE_PATH="$PROJECT_NAME.xcworkspace" # used if BUILD_FOR = "Workspace"
+
 BUILD_CONFIGURATION="Release"
 BUILD_SDK="iphoneos"
 SYMROOT="Deploy"
